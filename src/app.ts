@@ -6,6 +6,9 @@ import mongoSanitize from 'express-mongo-sanitize'
 
 import httpStatus from './constants/httpStatusCodes'
 
+//importa rotas
+import eventRouter from './routes/event'
+
 global.appRoot = path.resolve(__dirname)
 
 const app = express()
@@ -49,6 +52,8 @@ app.use(function (req, res, next) {
 })
 
 app.use(express.json())
+
+app.use('/event', eventRouter)
 
 // Not found and default router
 app.use('/', (req: Request, res: Response) => {
