@@ -4,6 +4,8 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import mongoSanitize from 'express-mongo-sanitize'
 
+import httpStatus from './constants/httpStatusCodes'
+
 global.appRoot = path.resolve(__dirname)
 
 const app = express()
@@ -16,7 +18,7 @@ app.use(mongoSanitize())
 
 // "catch" de erro de sintaxe Ex: json quebrado
 app.use(function (error, req: Request, res: Response, next: NextFunction) {
-    if (error instanceof SyntaxError) return res.status(400).send()
+    if (error instanceof SyntaxError) return res.status(httpStatus.badRequest).send()
     return next()
 })
 
@@ -50,7 +52,7 @@ app.use(express.json())
 
 // Not found and default router
 app.use('/', (req: Request, res: Response) => {
-    if (req.url !== '' && req.url !== '/') return res.status(404).send()
+    if (req.url !== '' && req.url !== '/') return res.status(httpStatus.notFound).send()
 
     return res.json('Hello world')
 })
