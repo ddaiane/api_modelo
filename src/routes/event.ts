@@ -1,14 +1,8 @@
-import { Request, Response, Router } from 'express';
-import httpStatus from '../constants/httpStatusCodes';
+import { Router } from 'express'
+import eventsController from '../controller/event'
 
-const router = Router();
+const router = Router()
 
-router.get(
-    '/', 
-    async (req: Request, res: Response) => {
-      res.status(httpStatus.success).json({
-        message: 'teste'
-      })
-  });
+router.get('/', eventsController.getEvents)
 
-export default router;
+export default router
