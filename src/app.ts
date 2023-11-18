@@ -6,7 +6,7 @@ import mongoSanitize from 'express-mongo-sanitize'
 
 import httpStatus from './constants/httpStatusCodes'
 
-//importa rotas
+// importa rotas
 import eventRouter from './routes/event'
 
 global.appRoot = path.resolve(__dirname)
@@ -21,7 +21,8 @@ app.use(mongoSanitize())
 
 // "catch" de erro de sintaxe Ex: json quebrado
 app.use(function (error, req: Request, res: Response, next: NextFunction) {
-    if (error instanceof SyntaxError) return res.status(httpStatus.badRequest).send()
+    if (error instanceof SyntaxError)
+        return res.status(httpStatus.badRequest).send()
     return next()
 })
 
@@ -57,7 +58,8 @@ app.use('/event', eventRouter)
 
 // Not found and default router
 app.use('/', (req: Request, res: Response) => {
-    if (req.url !== '' && req.url !== '/') return res.status(httpStatus.notFound).send()
+    if (req.url !== '' && req.url !== '/')
+        return res.status(httpStatus.notFound).send()
 
     return res.json('Hello world')
 })
